@@ -1,0 +1,15 @@
+\section{Problem}\label{sec:problem}
+Oglejmo si naslednji problem:
+\begin{definition}
+    Igraš igro, kjer imaš $n$ različnih stopenj.
+    Vsaka stopnja ima neko pošast, ki ima določeno moč in se lahko odločimo, da jo premagamo ali pa preskočimo.
+    Premagovanje pošasti nam vzame $s_i \cdot f$ časa, kjer je $s_i$ moč pošasti in $f$ naša spretnost (pozor: nižja kot je spretnost, manj časa potrebujemo).
+    Če pošast preskočimo, nam to ne vzame časa.
+    Ko premagamo pošast, se nam spretnost nastavi na $f_i$.
+    Cilj igre je, da premagamo zadnjo pošast v čim manj časa.
+    Napiši program, ki dobi $n$ - število stopenj, $s_i$ - moč pošasti na $i$-ti stopnji in $f_i$ - spretnost, ki jo dobimo, ko premagamo $i$-to pošast in izpiše najmanjši čas, ki ga potrebujemo, da premagamo zadnjo pošast.
+\end{definition}
+Ena izmed možnih rešitev je, da gremo skozi vse možnosti in izberemo najboljšo.
+Čeprav je ta rešitev pravilna, je časovno precej neučinkovita in nam ne bo prinesla veliko točk na tekmovanju.
+Časovna kompleksnost te rešitve je $O(2^n)$, ker je na vsaki stopnji dve možnosti: premagamo ali preskočimo pošast.\\
+Precej enostaven način za spisat tako rešitev je rekurzija: definiramo funkcijo $dobi(int stopnja, int spretnost)$, ki nam vrne najmanjši čas, ki ga potrebujemo, da premagamo vse pošasti od stopnje $stopnja$ naprej, če imamo spretnost $spretnost$.

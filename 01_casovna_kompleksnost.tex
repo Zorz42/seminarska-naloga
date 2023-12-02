@@ -1,0 +1,26 @@
+\section{Časovna kompleksnost}\label{sec:casovna-kompleksnost}
+Preden se lotimo reševanja problema, si oglejmo, kaj je časovna kompleksnost in kako je uporabna:\\
+Velik problem pride pri tem, da ni čas izvedbe vedno popolnoma enak, včasih je hitrejši, včasih počasnejši.
+Zelo je odvisno od drugih procesov in preostalih okoliščin, zato opišemo čas izvajanja bolj približno.
+Namesto, da konkretno povemo, koliko časa potrebuje algoritem, povemo, kako se čas izvajanja spreminja, ko se velikost vhoda spreminja.
+Večina časa je ta ocena dovolj dobra, saj hitra rešitev porabi desetkrat ali pa celo stokrat manj časa, kot je na voljo.
+Počasna resitev pa porabi lahko potencialno tudi tisočkrat več časa, kot je na voljo, zato je dovolj groba ocena.\\
+Primer:
+\begin{itemize}
+    \item Algoritem, ki gre skozi seznam in izpiše vse elemente, ima časovno kompleksnost $O(n)$, kjer je $n$ dolžina seznama.
+    \item Algoritem, ki gre skozi seznam in izpiše vse pare elementov, ima časovno kompleksnost $O(n^2)$, kjer je $n$ dolžina seznama.
+    \item Algoritem, ki uredi seznam po vrsti, ima časovno kompleksnost $O(n\log n)$, kjer je $n$ dolžina seznama.
+    Dokaz časovne kompleksnosti urejanja bomo tukaj opustili, saj ni pomemben del dokumenta.
+\end{itemize}
+Velikokrat je časovna kompleksnost le zgornja meja in se včasih izkaže, da je algoritem hitrejši, kot je bila ocena.
+To novo oceno se da matematično dokazati a je velikokrat precej zapleteno.\\
+Časovno kompleksnost ima tudi matematično definicijo:
+\begin{definition}
+    Naj bo $f$ funkcija, ki sprejme naravno število $n$ in vrne realno število.
+    Časovna kompleksnost algoritma je $O(f(n))$, če obstajata pozitivni konstanti $c$ in $n_0$, da velja:
+    \begin{equation*}
+        \forall n \geq n_0: \text{čas izvajanja algoritma} \leq c \cdot f(n)
+    \end{equation*}
+\end{definition}
+Ta definicija izgleda precej zapletena, a je v resnici precej preprosta.
+Razmislek o tej definiciji je prepuščen bralcu.\\
