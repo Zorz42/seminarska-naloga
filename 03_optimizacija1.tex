@@ -1,1 +1,12 @@
 \section{Optimizacija z dinamičnim programiranjem}\label{sec:optimizacija-z-dinamicnim-programiranjem}
+Da bi pohitrili našo rešitev, bomo nekaj opazili:
+Če privzamemo, da se globalne spremenljivke ne spreminjajo, potem je vrednost funkcije \texttt{najmanjsi\_cas} za neko stopnjo vedno enaka.
+To pomeni, da ko enkrat končamo s tekom funkcije, lahko shranimo rezultat in pri naslednjem klicu funkcije preverimo, če smo že kdaj računali vrednost za to stopnjo.
+Če smo, potem lahko kar vrnemo že izračunano vrednost, sicer pa izračunamo vrednost in jo shranimo.
+To naredimo tako, da hranimo dve tabeli: eno za vrednosti, ki smo jih že izračunali in drugo, ki pove, ali smo že izračunali vrednost za neko stopnjo.
+Potem pa ugotovimo naslednje dejstvo:
+namesto, da bi funkcijo rekurzivno klicali, bi kar brez funkcije izpolnili tabelo z vrednostmi.
+Ta optimizacija sicer ne spremeni časovne zahtevnosti, vendar pa bistveno pohitri izvajanje programa, saj so klici funkcij počasnejši od navadnih operacij.
+\\
+\\
+Časovna zahtevnost te rešitve je $O(n^2)$, saj moramo za vsako stopnjo iti skozi vse naslednje stopnje, kar je že veliko bolje kot prejšnjih $O(2^n)$.zahtevnost

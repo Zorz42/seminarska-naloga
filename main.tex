@@ -6,10 +6,16 @@
 \usepackage{amsthm}
 \usepackage{stmaryrd}
 \usepackage{graphicx}
+\usepackage{color}
+\usepackage{listings}
+\usepackage{hyperref}
 \usepackage{subfiles}
 \usepackage[notextcomp]{stix}
 \usepackage{amssymb}
 \usepackage[most]{tcolorbox}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage[utf8]{inputenc}
 
 \newenvironment{theorem} {\begin{tcolorbox}\paragraph{Izrek}}{\end{tcolorbox}}
 \newenvironment{definition} {\begin{tcolorbox}\paragraph{Definicija}}{\end{tcolorbox}}
@@ -30,6 +36,28 @@
     arc=0pt,outer arc=0pt,
     }
 
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+
 % Document
 \begin{document}
 
@@ -37,7 +65,7 @@
     \author{Jakob Žorž}
     \maketitle
 
-    \subfile{01_casovna_kompleksnost.tex}
+    \subfile{01_casovna_zahtevnost.tex}
     \subfile{02_problem.tex}
     \subfile{03_optimizacija1.tex}
     \subfile{04_optimizacija2.tex}

@@ -1,8 +1,9 @@
 \section{Problem}\label{sec:problem}
-Oglejmo si naslednji problem:
+Oglejmo si naslednji problem:\\
+\url{https://cses.fi/problemset/task/2085}
 \begin{definition}
     Igraš igro, kjer imaš $n$ različnih stopenj.
-    Vsaka stopnja ima neko pošast, ki ima določeno moč in se lahko odločimo, da jo premagamo ali pa preskočimo.
+    Vsaka stopnja ima neko pošast, ki ima določeno moč in se lahko odločimo, ali jo premagamo ali pa preskočimo.
     Premagovanje pošasti nam vzame $s_i \cdot f$ časa, kjer je $s_i$ moč pošasti in $f$ naša spretnost (pozor: nižja kot je spretnost, manj časa potrebujemo).
     Če pošast preskočimo, nam to ne vzame časa.
     Ko premagamo pošast, se nam spretnost nastavi na $f_i$.
@@ -11,5 +12,106 @@ Oglejmo si naslednji problem:
 \end{definition}
 Ena izmed možnih rešitev je, da gremo skozi vse možnosti in izberemo najboljšo.
 Čeprav je ta rešitev pravilna, je časovno precej neučinkovita in nam ne bo prinesla veliko točk na tekmovanju.
-Časovna kompleksnost te rešitve je $O(2^n)$, ker je na vsaki stopnji dve možnosti: premagamo ali preskočimo pošast.\\
-Precej enostaven način za spisat tako rešitev je rekurzija: definiramo funkcijo $dobi(int stopnja, int spretnost)$, ki nam vrne najmanjši čas, ki ga potrebujemo, da premagamo vse pošasti od stopnje $stopnja$ naprej, če imamo spretnost $spretnost$.
+Časovna zahtevnost te rešitve je $O(2^n)$, ker sta na vsaki stopnji dve možnosti: premagamo ali pa preskočimo pošast.\\
+Precej enostaven način za spisat tako rešitev je rekurzija: definiramo funkcijo
+\begin{lstlisting}[label={lst:code1}, language=C++]
+int najmanjsi_cas(int stopnja);
+\end{lstlisting}
+, ki nam vrne najmanjši čas, ki ga potrebujemo, da premagamo vse pošasti od stopnje \texttt{stopnja} naprej, če smo že premagali pošast na trenutni stopnji (in mogoče še kakšne prej).
+Ključno je to, da na našo spretnost samo vpliva samo zadnja pošast, ki smo jo premagali.
+
+\begin{lstlisting}[label={lst:code2}, language=C++]
+// standardna knjiznica
+#include<iostream>
+#include<vector>
+// definiramo krajsnjico za 64-bitno stevilo
+typedef long long int64;
+// da lahko opustimo "std::" predpono
+using namespace std;
+
+
+int n; // stevilo posasti
+vector<int> moc_posasti; // moc vsake posasti
+vector<int> spretnost_po; // nasa spretnost po uboju vsake posasti
+
+// Ta funkcija vrne najmansi cas, da ubijemo zadnjo posast,
+//ce zacnemo na neki stopnji na kateri smo ze ubili posast
+int64 najmanjsi_cas(int stopnja) {
+    // ce je stopnja zadnja, potem smo koncali igro in traja 0 sekund, da jo koncamo (d-uh)
+    if(stopnja == n - 1)
+        return 0;
+
+
+    // Ocitno je nasa spretnost natanko: spretnost_po[stopnja],
+    // ker smo po predpostavki funkcije ravnokar ubili posast na trenutni stopnji.
+    int trenutna_spretnost = spretnost_po[stopnja];
+
+    // zdaj imamo natanko "n - stopnja - 1" moznosti: da ubijemo neko naslednjo posast.
+    // na sreco lahko po naslednjem uboju rekurzivno poklicemo to isto funkcijo,
+    // saj pridemo do istega problema le z vecjo stopnjo
+
+    // trenutni rezultat je nastavljen na 10^18, saj bomo vzeli minimum od vseh "n - stopnja - 1" izbir.
+    int64 rezultat = 1e18;
+
+    // poizkusamo vsako mozno naslednjo stopnjo, zacnemo pri "stopnja + 1",
+    // saj moramo iti naprej in koncamo pri vkljucno "n - 1", saj je to zadnja stopnja.
+    for(int naslednja_stopnja = stopnja + 1; naslednja_stopnja < n; naslednja_stopnja++) {
+        // ta spremenljivka hrani, koliko casa bi vzelo ce bi koncali igro tako,
+        // da bi nasleden uboj bil v stopnji: naslednja_stopnja
+        int64 trenutna_vrednost = 0;
+
+        // to je cas, ki je potreben, da ubijemo tam bivajoco posast
+        //                    VVVVV pretvorimo v int64, da ne prekoraci omejitev 32 bitnih spremenljivk
+        trenutna_vrednost += (int64) trenutna_spretnost * moc_posasti[naslednja_stopnja];
+
+        // to je cas, ki je potreben, da koncamo igro do konca
+        trenutna_vrednost += najmanjsi_cas(naslednja_stopnja);
+
+        // zdaj, ko imamo cas, potem nastavimo rezultat
+        // na ta cas samo, ce je manjsi od rezultata
+        rezultat = min(rezultat, trenutna_vrednost);
+
+        // min(a,b) vrne manjso vrednost
+    }
+
+    // na koncu bo rezultat imel najmanjsi cas, saj smo sli skozi vse moznosti
+    return rezultat;
+}
+
+int main(){
+    // ni tako pomembno:
+    // preberemo n in x
+    int zacetna_spretnost;
+    cin>>n>>zacetna_spretnost;
+    // nastavimo velikost obeh seznamov na n
+    moc_posasti.resize(n);
+    spretnost_po.resize(n);
+    // preberemo vrednosti in jih vnesemo v oba seznama
+    for(int&i:moc_posasti)
+        cin>>i;
+    for(int&i:spretnost_po)
+        cin>>i;
+
+    // rezultat celega programa
+    int64 rezultat = 1e18;
+
+    // prvi uboj je lahko kjerkoli, gremo skozi vse mozne
+    for(int prvi_uboj = 0; prvi_uboj < n; prvi_uboj++) {
+        int64 trenutna_vrednost = 0;
+
+        // to je cas, ki je potreben, da ubijemo tam bivajoco posast
+        trenutna_vrednost += (int64) zacetna_spretnost * moc_posasti[prvi_uboj];
+
+        // poklicemo funkcijo, da nam ugotovi koliko casa bo trajalo, da pridemo do konca
+        trenutna_vrednost += najmanjsi_cas(prvi_uboj);
+
+        rezultat = min(rezultat, trenutna_vrednost);
+    }
+
+    // rezultat bo na koncu vseboval najkrajsi cas
+    // izpisi ga
+    cout << rezultat << "\n";
+
+    return 0;
+}
+\end{lstlisting}
