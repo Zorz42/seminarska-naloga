@@ -1,6 +1,6 @@
 \section{Optimizacija s konveksno ovojnico}\label{sec:optimizacija-s-konveksno-ovojnico}
 
-\begin{lstlisting}[label={lst:code3}, language=C++]
+\begin{lstlisting}[label={lst:code4}, language=C++]
 
 for(int stopnja = n - 2; stopnja >= 0; stopnja--) {
     int trenutna_spretnost = spretnost_po[stopnja];
@@ -20,7 +20,7 @@ for(int stopnja = n - 2; stopnja >= 0; stopnja--) {
 
 Če si bolj natančno pogledamo zgornjo kodo opazimo, da notranja zanka vresnici dobi minimum vseh vrednosti:
 
-\begin{lstlisting}[label={lst:code4}, language=C++]
+\begin{lstlisting}[label={lst:code6}, language=C++]
     trenutna_spretnost * moc_posasti[i] + najmanjsi_cas[i]
 \end{lstlisting}
 
@@ -33,7 +33,7 @@ Ostale premice ostanejo.
 \\
 Zato lahko sprogramiramo podatkovno strukturo, ki nam hrani premice in nam vrne minimum za neki $x$.
 
-\begin{lstlisting}[label={lst:code4}, language=C++]
+\begin{lstlisting}[label={lst:code7}, language=C++]
 // standardna knjiznica
 #include<iostream>
 #include<vector>
