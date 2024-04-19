@@ -16,6 +16,7 @@
 \usepackage[T1]{fontenc}
 \usepackage{textcomp}
 \usepackage[utf8]{inputenc}
+\usepackage{makeidx}
 
 \graphicspath{ {./} }
 
@@ -59,6 +60,7 @@
   tabsize=3
 }
 
+\makeindex
 
 % Document
 \begin{document}
@@ -77,7 +79,9 @@
 
        \vfill
 
-       Rešitev problema z napredno podatkovno strukturo
+       Rešitev problema z napredno podatkovno strukturo\\
+       Maturitetna seminarska naloga iz informatike\\
+       Škofja Loka, 2024
 
        \vspace{0.8cm}
 
@@ -86,14 +90,29 @@
        Informatika\\
        Gimnazija Škofja Loka\\
        Slovenija\\
-       3. April 2024
+       18.
+       April 2024
 
     \end{center}
     \end{titlepage}
 
+    \clearpage
+
+    \printindex
+
+    \clearpage
+
+    \index{Uvod}
+    \subfile{00_uvod.tex}
+    \index{Časovna zahtevnost}
     \subfile{01_casovna_zahtevnost.tex}
+    \index{Problem}
     \subfile{02_problem.tex}
+    \index{Optimizacija z dinamičnim programiranjem}
     \subfile{03_optimizacija1.tex}
+    \index{Optimizacija z konveksno ovojnico}
     \subfile{04_optimizacija2.tex}
+    \index{Zaključek}
+    \subfile{05_konec.tex}
 
 \end{document}
